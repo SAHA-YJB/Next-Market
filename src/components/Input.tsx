@@ -38,6 +38,7 @@ const Input: React.FC<InputProps> = ({
         p-4 
         pt-6
         rounded-md 
+        border-2
         font-light
         bg-white
         outline-none 
@@ -52,10 +53,10 @@ const Input: React.FC<InputProps> = ({
       <label
         className={`
       absolute
-      text-md
+      text-sm
       duration-150
       transform-translate-y-3
-      top-5
+      top-3
       z-10
       origin-0
       ${formatPrice ? "left-9" : "left-4"}

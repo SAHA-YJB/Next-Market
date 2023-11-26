@@ -4,27 +4,33 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
-import { signIn } from "next-auth/react";
-
-const LoginPage = () => {
+const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
   });
 
-  //로그인 로직 넥스트어스 signIn함수 사용
+  //리액트훅폼에서 제공하는 함수에 들어갈 함수
+  //회원가입 로직
   const onSubmit: SubmitHandler<FieldValues> = async (body) => {
     setIsLoading(true);
     try {
-      const data = await signIn("credentials", body);
+      console.log("body", body);
+      const { data } = await axios.post("/api/register", body);
+      console.log('data',data);
+      router.push("/auth/login");
     } catch (error) {
       console.log(error);
     } finally {
@@ -39,7 +45,7 @@ const LoginPage = () => {
         className="flex flex-col justify-center gap-4 min-w-[350px]"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1 className="text-2xl">로그인</h1>
+        <h1 className="text-2xl">회원가입</h1>
 
         <Input
           id="email"
@@ -49,7 +55,14 @@ const LoginPage = () => {
           errors={errors}
           required
         />
-
+        <Input
+          id="name"
+          label="Name"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
         <Input
           id="password"
           label="Password"
@@ -60,16 +73,16 @@ const LoginPage = () => {
           required
         />
 
-        <Button label="로그인" />
+        <Button label="회원가입" />
 
         <div className="text-center">
           <p className="text-gray-500 text-sm">
-            회원이 아니신가요?{" "}
+            이미 회원이신가요?{" "}
             <Link
-              href="/auth/register"
+              href="/auth/login"
               className="text-sm text-green-700 hover:underline"
             >
-              회원가입하러 가기
+              로그인하러 가기
             </Link>
           </p>
         </div>
@@ -78,4 +91,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

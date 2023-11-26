@@ -43,7 +43,6 @@ export const authOptions: NextAuthOptions = {
   //커스텀페이지 로그인 로그아웃
   pages: {
     signIn: "/auth/login",
-    signOut: "/auth/logout",
   },
   session: {
     strategy: "jwt",
