@@ -37,6 +37,16 @@ export const authOptions: NextAuthOptions = ({
   ],
   session: {
     strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({token, user}) {
+      return {...token, ...user}
+    },
+    //jwt리턴값이 세션의 매개변수 토큰으로 감
+    async session({session, token}) {
+      session.user = token
+      return session
+    }
   }
 })
 export default NextAuth(authOptions)
