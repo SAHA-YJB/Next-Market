@@ -1,4 +1,5 @@
 "use client";
+//넥스트 어스에서 제공하는 로그인 로그아웃 함수
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";

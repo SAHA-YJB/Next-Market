@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
+        {/* 세션프로바이더로 감싸기 */}
         <SessionProvider>
           <Navbar />
           {children}
