@@ -4,7 +4,6 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
 import { signIn } from "next-auth/react";
 
 const LoginPage = () => {

@@ -1,15 +1,17 @@
 "use client";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  // 리액트훅폼에서 제공하는 함수
   const {
     register,
     handleSubmit,
@@ -29,7 +31,7 @@ const RegisterPage = () => {
     try {
       console.log("body", body);
       const { data } = await axios.post("/api/register", body);
-      console.log('data',data);
+      console.log("data", data);
       router.push("/auth/login");
     } catch (error) {
       console.log(error);

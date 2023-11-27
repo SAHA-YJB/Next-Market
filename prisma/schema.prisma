@@ -1,15 +1,20 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// 프리즈마 init
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  // .env에 DATABASE_URL이 자동으로 연결
+  // 일단 railway로 연결(supabase도 가능)
+  // 조금 더 공부해서 도커로 연결해보기
   url      = env("DATABASE_URL")
 }
 
+// 프리즈마 어스페이지 스키마
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -37,11 +42,17 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+// 관리자 유저 타입 추가
 enum UserType {
   USER
   ADMIN
 }
 
+// 복호화된 비밀번호를 저장할 필드 추가
+// hashedPassword String?
+// 시간을 저장할 필드 추가
+// createdAt DateTime @default(now())
+// updatedAt DateTime @updatedAt
 model User {
   id             String    @id @default(cuid())
   name           String?

@@ -1,4 +1,4 @@
-//prisma 클라이언트 공용으로 사용하기
+//prisma객체 클라이언트 공용으로 사용하기
 import { PrismaClient } from "@prisma/client";
 
 declare global {
