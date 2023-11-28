@@ -21,6 +21,7 @@ const Input: React.FC<InputProps> = ({
   disabled,
   formatPrice,
   register,
+  //서버로 제출되기 전 반드시 채워져 있어야 하는 입력 필드를 명시
   required,
   errors,
 }) => {
