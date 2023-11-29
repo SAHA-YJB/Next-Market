@@ -1,12 +1,12 @@
 //넥스트 어스는 아직은 app안에 api폴더에서 사용 불가 일단은 pages폴더에 api폴더를 만들어서 사용
 //프리즈마 어댑터 세팅
-import prisma from "@/helpers/prismadb";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import bcrypt from "bcryptjs";
-import NextAuth, { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import KakaoProvider from "next-auth/providers/kakao";
+import prisma from '@/helpers/prismadb';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import bcrypt from 'bcryptjs';
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
+import KakaoProvider from 'next-auth/providers/kakao';
 
 //나중에 다른 곳에서 사용해야 할 수도 있음
 export const authOptions: NextAuthOptions = {
@@ -24,14 +24,14 @@ export const authOptions: NextAuthOptions = {
     }),
 
     CredentialsProvider({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
+        email: { label: 'Email', type: 'text' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("다시 시도해보세요!");
+          throw new Error('다시 시도해보세요!');
         }
 
         const user = await prisma.user.findUnique({
@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions = {
           },
         });
         if (!user || !user.hashedPassword) {
-          throw new Error("다시 시도해보세요!");
+          throw new Error('다시 시도해보세요!');
         }
         // 비밀번호 체크
         // compare 함수를 사용하여 비밀번호가 일치하는지 확인
@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!isCorrectPassword) {
-          throw new Error("다시 시도해보세요!");
+          throw new Error('다시 시도해보세요!');
         }
         return user;
       },
@@ -58,11 +58,11 @@ export const authOptions: NextAuthOptions = {
   ],
   //원래는 넥스트어스에서 제공하는 페이지이지만 커스텀 페이지로 대체
   pages: {
-    signIn: "/auth/login",
+    signIn: '/auth/login',
   },
   //세션 데이터 jwt에 저장
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   jwt: {
     //토큰 생성

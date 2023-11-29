@@ -1,6 +1,6 @@
-import prisma from "@/helpers/prismadb";
-import bcrypt from "bcryptjs";
-import { NextResponse } from "next/server";
+import prisma from '@/helpers/prismadb';
+import bcrypt from 'bcryptjs';
+import { NextResponse } from 'next/server';
 
 //회원가입로직
 export async function POST(req: Request) {
