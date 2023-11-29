@@ -42,10 +42,12 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// 관리자 유저 타입 추가
-enum UserType {
-  USER
-  ADMIN
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 // 복호화된 비밀번호를 저장할 필드 추가
@@ -70,12 +72,10 @@ model User {
   favoriteIds String[]
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+// 관리자 유저 타입 추가
+enum UserType {
+  USER
+  ADMIN
 }
 
 model Product {
