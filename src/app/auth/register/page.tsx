@@ -29,12 +29,11 @@ const RegisterPage = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (body) => {
     setIsLoading(true);
     try {
-      console.log('body', body);
       const { data } = await axios.post('/api/register', body);
       console.log('data', data);
       router.push('/auth/login');
     } catch (error) {
-      console.log(error);
+      console.log('회원가입 섭밋 에러', error);
     } finally {
       setIsLoading(false);
     }
@@ -78,7 +77,7 @@ const RegisterPage = () => {
         <Button label='회원가입' />
 
         <div className='text-center'>
-          <p className='text-gray-500 text-sm'>
+          <p className='text-gray-400 text-sm'>
             이미 회원이신가요?{' '}
             <Link
               href='/auth/login'

@@ -34,6 +34,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error('다시 시도해보세요!');
         }
 
+        //유저 찾는 부분
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email,

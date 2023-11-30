@@ -1,8 +1,10 @@
 import getCurrentUser from '../actions/getCurrentUser';
 
 const UserPage = async () => {
+  // 그냥 쓰는방법getServerSession
   // const session = await getServerSession(authOptions);
-  // console.log(session);
+
+  // 모듈화로 쓰는 방법
   const userData = await getCurrentUser();
   console.log('userData', userData);
 

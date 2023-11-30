@@ -1,10 +1,10 @@
 'use client';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { signIn } from 'next-auth/react';
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,7 @@ const LoginPage = () => {
     try {
       const data = await signIn('credentials', body);
     } catch (error) {
-      console.log(error);
+      console.log('로그인 섭밋 에러', error);
     } finally {
       setIsLoading(false);
     }
@@ -62,7 +62,7 @@ const LoginPage = () => {
         <Button label='로그인' />
 
         <div className='text-center'>
-          <p className='text-gray-500 text-sm'>
+          <p className='text-gray-400 text-sm'>
             회원이 아니신가요?{' '}
             <Link
               href='/auth/register'

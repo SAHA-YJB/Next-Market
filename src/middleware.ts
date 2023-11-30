@@ -1,5 +1,6 @@
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
+export { default } from 'next-auth/middleware';
 
 // 특정 경로 접근 권한 설정
 // 어드민으로 시작하는 모든 경로는 로그인이 되어야 가능-> /:path*
@@ -10,6 +11,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function middleware(req: NextRequest) {
   //getToken은 세션을 가져옴
   const session = await getToken({ req, secret: process.env.JWT_SECRET });
+  //경로찾기 변수
   const pathname = req.nextUrl.pathname;
 
   //로그인된 유저만 접근 가능하게 함
@@ -17,8 +19,8 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/auth/login', req.url));
   }
 
-  //어드민만 접근 가능하게 함
-  if (pathname.startsWith('/admin') && session?.role !== 'Admin') {
+  //어드민만 접근 가 능하게 함
+  if (pathname.startsWith('/admin') && session?.role !== 'ADMIN') {
     return NextResponse.redirect(new URL('/', req.url));
   }
 

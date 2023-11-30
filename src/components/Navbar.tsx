@@ -15,7 +15,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
     setMenu(!menu);
   };
   return (
-    <nav className='relative z-10 bg-green-600 text-white'>
+    <nav className='relative z-10 bg-green-500 text-white'>
       <div className='sm:mx-10 lg:mx-20 mx-5 flex justify-between items-center'>
         <div className='flex items-center text-2xl h-14'>
           <Link href={'/'}>Logo</Link>

@@ -1,9 +1,9 @@
 import Navbar from '@/components/Navbar';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 import getCurrentUser from './actions/getCurrentUser';
 import './globals.css';
-import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,7 +27,8 @@ export default async function RootLayout({
         {/* 페이지들 들어오는 곳 */}
         {children}
         <Script
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAPS}&libraries=services,clusterer&autoload=false`}/>
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAPS}&libraries=services,clusterer&autoload=false`}
+        />
       </body>
     </html>
   );
