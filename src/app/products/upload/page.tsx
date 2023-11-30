@@ -4,6 +4,7 @@ import Container from '@/components/Container';
 import Heading from '@/components/Heading';
 import ImageUpload from '@/components/ImageUpload';
 import Input from '@/components/Input';
+import dynamic from 'next/dynamic';
 import { categories } from '@/components/categories/Categories';
 import CategoryInput from '@/components/categories/CategoryInput';
 import { useState } from 'react';
@@ -33,9 +34,16 @@ const ProductUploadPage = () => {
     },
   });
 
+  // 다이나믹 임폴트 런타임에 모듈을 가져올 수 있게 해줌
+  const KakaoMap = dynamic(() => import('../../../components/KakaoMap'), {
+    ssr: false,
+  });
+
   // watch 함수는 특정 입력 필드의 상태를 실시간으로 관찰하고 그 값을 반환하는 역할
   const imgSrc = watch('imageSrc');
   const category = watch('category');
+  const latitude = watch('latitude');
+  const longitude = watch('longitude');
 
   //밸류는 여러가지가 될 수 있다
   const setCustomValue = (id: string, value: any) => {
@@ -82,7 +90,7 @@ const ProductUploadPage = () => {
             required
           />
           <hr />
-
+          {/* 카테고리 */}
           <div className='grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto'>
             {categories.map((item) => (
               <div key={item.label} className='col-span-1'>
@@ -99,6 +107,11 @@ const ProductUploadPage = () => {
           <hr />
 
           {/* 카카오맵 */}
+          <KakaoMap
+            setCustomValue={setCustomValue}
+            latitude={latitude}
+            longitude={longitude}
+          />
 
           <Button label='상품 생성하기' />
         </form>
