@@ -9,12 +9,24 @@ import CategoryInput from '@/components/categories/CategoryInput';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm, set } from 'react-hook-form';
 
 const ProductUploadPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  // 현재 위치를 가져오기 위한 스테이트와 useEffect
+  // 찾고 프랍으로 전달
+  const [latitude, setLatitude] = useState<number>(0);
+  const [longitude, setLongitude] = useState<number>(0);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    });
+  }, []);
 
   // react-hook-form 함수들
   const {
@@ -43,12 +55,14 @@ const ProductUploadPage = () => {
   });
 
   // watch 함수는 특정 입력 필드의 상태를 실시간으로 관찰하고 그 값을 반환하는 역할
+  // useState의 0번쨰 인덱스 같은 역할
   const imgSrc = watch('imageSrc');
   const category = watch('category');
-  const latitude = watch('latitude');
-  const longitude = watch('longitude');
+  // const latitude = watch('latitude');
+  // const longitude = watch('longitude');
 
-  //밸류는 여러가지가 될 수 있다
+  // 밸류는 여러가지가 될 수 있다
+  // 레지스터로 등록 안되어 있어서 setValue로 등록
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value);
   };
@@ -123,6 +137,8 @@ const ProductUploadPage = () => {
             setCustomValue={setCustomValue}
             latitude={latitude}
             longitude={longitude}
+            setLatitude={setLatitude}
+            setLongitude={setLongitude}
           />
 
           <Button label='상품 생성하기' />

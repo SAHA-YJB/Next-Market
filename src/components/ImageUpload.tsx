@@ -1,6 +1,5 @@
 import { CldUploadWidget } from 'next-cloudinary';
 import Image from 'next/image';
-import React from 'react';
 import { TbPhotoPlus } from 'react-icons/tb';
 
 interface ImageUploadProps {
@@ -18,6 +17,7 @@ const ImageUpload = ({ onChange, value }: ImageUploadProps) => {
       uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
       options={{ maxFiles: 1 }}
     >
+      {/* 클라우디너리 업로드 위젯을 열기위한 함수 open  */}
       {({ open }) => {
         return (
           <div
