@@ -75,7 +75,7 @@ const ProductUploadPage = () => {
       .then((res) => {
         router.push(`/products/${res.data.id}`);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log('프로덕트 섭밋 에러', err))
       .finally(() => setIsLoading(false));
   };
 
