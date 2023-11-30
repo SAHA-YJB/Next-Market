@@ -4,14 +4,17 @@ import Container from '@/components/Container';
 import Heading from '@/components/Heading';
 import ImageUpload from '@/components/ImageUpload';
 import Input from '@/components/Input';
-import dynamic from 'next/dynamic';
 import { categories } from '@/components/categories/Categories';
 import CategoryInput from '@/components/categories/CategoryInput';
+import axios from 'axios';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 const ProductUploadPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   // react-hook-form 함수들
   const {
@@ -51,7 +54,16 @@ const ProductUploadPage = () => {
   };
 
   //각 인풋에 대한 입력값을 data매개변수가 받음
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {};
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+    axios
+      .post('/api/products', data)
+      .then((res) => {
+        router.push(`/products/${res.data.id}`);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
+  };
 
   return (
     <Container>
