@@ -1,8 +1,10 @@
-import React from 'react';
-import { TbBeach, TbMountain, TbPool } from 'react-icons/tb';
+'use client';
+import { useSearchParams } from 'next/navigation';
+import { FaSkiing } from 'react-icons/fa';
 import { GiBoatFishing, GiIsland, GiWindmill } from 'react-icons/gi';
 import { MdOutlineVilla } from 'react-icons/md';
-import { FaSkiing } from 'react-icons/fa';
+import { TbBeach, TbMountain, TbPool } from 'react-icons/tb';
+import CategoryBox from './CategoryBox';
 
 export const categories = [
   {
@@ -56,7 +58,23 @@ export const categories = [
 ];
 
 const Categories = () => {
-  return <div>Categories</div>;
+  const params = useSearchParams();
+  const category = params?.get('category');
+
+  return (
+    <div className='flex items-center justify-between pt-4 pb-8 overflow-x-auto'>
+      {categories.map((item) => (
+        <CategoryBox
+          key={item.label}
+          label={item.label}
+          path={item.path}
+          icon={item.icon}
+          // 선택된 것 분기처리 스타일링 하기 위해
+          selected={item.path === category}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default Categories;

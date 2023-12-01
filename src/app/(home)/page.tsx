@@ -1,9 +1,10 @@
 import Container from '@/components/Container';
-import getProducts, { ProductsParams } from '../actions/getProducts';
 import EmptyState from '@/components/EmptyState';
-import ProductCard from '@/components/ProductCard';
-import getCurrentUser from '../actions/getCurrentUser';
 import FloatingButton from '@/components/FloatingButton';
+import ProductCard from '@/components/ProductCard';
+import Categories from '@/components/categories/Categories';
+import getCurrentUser from '../actions/getCurrentUser';
+import getProducts, { ProductsParams } from '../actions/getProducts';
 
 interface HomeProps {
   searchParams: ProductsParams;
@@ -15,6 +16,7 @@ export default async function Home({ searchParams }: HomeProps) {
   return (
     <Container>
       {/* 카테고리 */}
+      <Categories />
 
       {products?.data.length === 0 ? (
         <EmptyState showReset />

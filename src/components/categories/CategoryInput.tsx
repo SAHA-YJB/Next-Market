@@ -1,3 +1,4 @@
+// 상세페이지 사용자가 선택할 수 있는 카테고리를 보여주는 컴포넌트
 import React from 'react';
 import { IconType } from 'react-icons';
 
