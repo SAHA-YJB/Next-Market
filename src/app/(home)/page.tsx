@@ -1,4 +1,9 @@
+import Container from '@/components/Container';
 import getProducts, { ProductsParams } from '../actions/getProducts';
+import EmptyState from '@/components/EmptyState';
+import ProductCard from '@/components/ProductCard';
+import getCurrentUser from '../actions/getCurrentUser';
+import FloatingButton from '@/components/FloatingButton';
 
 interface HomeProps {
   searchParams: ProductsParams;
@@ -6,7 +11,29 @@ interface HomeProps {
 
 export default async function Home({ searchParams }: HomeProps) {
   const products = await getProducts(searchParams);
-  console.log(products);
+  const currentUser = await getCurrentUser();
+  return (
+    <Container>
+      {/* 카테고리 */}
 
-  return <main>누구나 볼 수 있는 페이지 변경사항 적용</main>;
+      {products?.data.length === 0 ? (
+        <EmptyState />
+      ) : (
+        <>
+          <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6'>
+            {products.data.map((product) => (
+              <ProductCard
+                currentUser={currentUser}
+                key={product.id}
+                data={product}
+              />
+            ))}
+          </div>
+        </>
+      )}
+      <div className='text-4xl font-semibold text-center'>
+        <FloatingButton href='/products/upload'>+</FloatingButton>
+      </div>
+    </Container>
+  );
 }
