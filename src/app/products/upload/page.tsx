@@ -141,7 +141,7 @@ const ProductUploadPage = () => {
             setLongitude={setLongitude}
           />
 
-          <Button label='상품 생성하기' />
+          <Button label='상품 생성하기' disabled={isLoading} />
         </form>
       </div>
     </Container>
