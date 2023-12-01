@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import getCurrentUser from './actions/getCurrentUser';
 import './globals.css';
+import ToastProvider from '@/components/ToastProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({
     <html lang='ko'>
       <body className={inter.className}>
         <Navbar currentUser={currentUser} />
+        <ToastProvider />
         {/* 페이지들 들어오는 곳 */}
         {children}
         <Script
