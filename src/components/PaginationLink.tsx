@@ -4,7 +4,6 @@ import { useSearchParams } from 'next/navigation';
 import React, { PropsWithChildren } from 'react';
 import qs from 'query-string';
 import Link from 'next/link';
-import { text } from 'stream/consumers';
 
 type PaginationLinkProps = {
   page: number;
@@ -21,10 +20,6 @@ const PaginationLink = ({
   const params = useSearchParams();
   const limit = PRODUCTS_PER_PAGE;
   const skip = page ? (Number(page) - 1) * limit : 0;
-
-  console.log('page', page);
-  console.log('skip', skip);
-  console.log('limit', limit);
 
   let currentQuery = {};
 
