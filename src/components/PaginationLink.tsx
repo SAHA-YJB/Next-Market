@@ -1,0 +1,56 @@
+'use client';
+import { PRODUCTS_PER_PAGE } from '@/constants';
+import { useSearchParams } from 'next/navigation';
+import React, { PropsWithChildren } from 'react';
+import qs from 'query-string';
+import Link from 'next/link';
+import { text } from 'stream/consumers';
+
+type PaginationLinkProps = {
+  page: number;
+  disabled?: boolean;
+  active?: boolean;
+} & PropsWithChildren;
+
+const PaginationLink = ({
+  page,
+  disabled,
+  active,
+  children,
+}: PaginationLinkProps) => {
+  const params = useSearchParams();
+  const limit = PRODUCTS_PER_PAGE;
+  const skip = page ? (Number(page) - 1) * limit : 0;
+
+  console.log('page', page);
+  console.log('skip', skip);
+  console.log('limit', limit);
+
+  let currentQuery = {};
+
+  if (params) {
+    currentQuery = qs.parse(params?.toString());
+  }
+
+  const updatedQuery = {
+    ...currentQuery,
+    page,
+    skip,
+  };
+
+  return (
+    <Link
+      href={{ query: updatedQuery }}
+      className={`
+    p-2
+    text-2xl
+    ${active ? 'font-bold text-green-500' : 'text-gray-500'}
+    ${disabled ? 'pointer-events-none text-gray-500' : ''}
+  `}
+    >
+      {children}
+    </Link>
+  );
+};
+
+export default PaginationLink;

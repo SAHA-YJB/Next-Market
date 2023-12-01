@@ -1,8 +1,10 @@
 import Container from '@/components/Container';
 import EmptyState from '@/components/EmptyState';
 import FloatingButton from '@/components/FloatingButton';
+import MyPagination from '@/components/Pagination';
 import ProductCard from '@/components/ProductCard';
 import Categories from '@/components/categories/Categories';
+import { PRODUCTS_PER_PAGE } from '@/constants';
 import getCurrentUser from '../actions/getCurrentUser';
 import getProducts, { ProductsParams } from '../actions/getProducts';
 
@@ -13,6 +15,11 @@ interface HomeProps {
 export default async function Home({ searchParams }: HomeProps) {
   const products = await getProducts(searchParams);
   const currentUser = await getCurrentUser();
+
+  const page = searchParams?.page;
+  const pageNum = typeof page === 'string' ? Number(page) : 1;
+
+  console.log('pagenum', pageNum);
   return (
     <Container>
       {/* 카테고리 */}
@@ -33,6 +40,13 @@ export default async function Home({ searchParams }: HomeProps) {
           </div>
         </>
       )}
+
+      <MyPagination
+        page={pageNum}
+        totalItems={products.totalItems}
+        perPage={PRODUCTS_PER_PAGE}
+      />
+
       <div className='text-4xl font-semibold text-center'>
         <FloatingButton href='/products/upload'>+</FloatingButton>
       </div>
