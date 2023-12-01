@@ -44,8 +44,8 @@ const ProductUploadPage = () => {
       category: '',
       price: 1,
       imageSrc: '',
-      latitude: 33.5563,
-      longitude: 126.79581,
+      latitude,
+      longitude,
     },
   });
 
