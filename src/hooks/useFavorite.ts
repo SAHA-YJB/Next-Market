@@ -10,7 +10,8 @@ interface UseFavorite {
 
 const useFavorite = ({ productId, currentUser }: UseFavorite) => {
   const router = useRouter();
-  const hasFavoite = useMemo(() => {
+
+  const hasFavorite = useMemo(() => {
     const list = currentUser?.favoriteIds || [];
 
     return list.includes(productId);
@@ -22,11 +23,10 @@ const useFavorite = ({ productId, currentUser }: UseFavorite) => {
       router.push('/auth/login');
       return;
     }
-
     try {
       let request;
       // hasFavoite 트루라면 삭제, 아니라면 추가 트루라면 이미 되어있는 것임
-      if (hasFavoite) {
+      if (hasFavorite) {
         request = () => axios.delete(`/api/favorites/${productId}`);
       } else {
         request = () => axios.post(`/api/favorites/${productId}`);
@@ -39,6 +39,6 @@ const useFavorite = ({ productId, currentUser }: UseFavorite) => {
     }
   };
 
-  return { hasFavoite, toggleFavorite };
+  return { hasFavorite, toggleFavorite };
 };
 export default useFavorite;
