@@ -1,6 +1,6 @@
 // 메인페이지 사용자가 선택할 수 있는 카테고리 박스
-import { IconType } from 'react-icons';
 import Link from 'next/link';
+import { IconType } from 'react-icons';
 interface CategoryBoxProps {
   icon: IconType;
   label: string;

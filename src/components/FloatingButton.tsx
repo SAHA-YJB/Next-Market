@@ -7,6 +7,8 @@ interface FloatingButtonProps {
 
 const FloatingButton = ({ children, href }: FloatingButtonProps) => {
   return (
+    // aspect-square: 가로 세로 비율이 1:1인 요소
+    // rounded-full이 있으니까 동그라미
     <Link
       href={href}
       className='flex items-center justify-center border-0 border-transparent 

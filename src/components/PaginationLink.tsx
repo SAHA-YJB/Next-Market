@@ -10,6 +10,8 @@ type PaginationLinkProps = {
   disabled?: boolean;
   active?: boolean;
 } & PropsWithChildren;
+// children: React.ReactNode
+// 이 방법 말고도 & PropsWithChildren; 이것도 있다
 
 const PaginationLink = ({
   page,
@@ -24,9 +26,11 @@ const PaginationLink = ({
   let currentQuery = {};
 
   if (params) {
+    // ex)category=interior 이런값을 객체로 변환
     currentQuery = qs.parse(params?.toString());
   }
 
+  // 페이지랑 스킵 추가
   const updatedQuery = {
     ...currentQuery,
     page,

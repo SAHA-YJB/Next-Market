@@ -11,10 +11,12 @@ export interface ProductsParams {
 
 export default async function getProducts(params: ProductsParams) {
   try {
+    // 프로덕트의 데이터들 중에 뽑아낼 데이터들
     const { category, latitude, longitude, skip } = params;
 
     let query: any = {};
 
+    // 카테고리가 있으면 쿼리에 카테고리 키에 카테고리 값 넣기
     if (category) {
       query.category = category;
     }
@@ -39,8 +41,10 @@ export default async function getProducts(params: ProductsParams) {
     const products = await prisma.product.findMany({
       where: query,
       orderBy: {
+        //내림차순
         createdAt: 'desc',
       },
+      // 실제 페이지 수대로 가져오기
       skip: skip ? Number(skip) : 0,
       take: PRODUCTS_PER_PAGE,
     });

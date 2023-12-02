@@ -27,7 +27,7 @@ const useFavorite = ({ productId, currentUser }: UseFavorite) => {
     }
     try {
       let request;
-      // hasFavoite 트루라면 삭제, 아니라면 추가 트루라면 이미 되어있는 것임
+      // hasFavoite(좋아요가 되어 있다면) 트루라면 삭제, 아니라면 추가
       if (hasFavorite) {
         request = () => axios.delete(`/api/favorites/${productId}`);
       } else {
@@ -35,6 +35,7 @@ const useFavorite = ({ productId, currentUser }: UseFavorite) => {
       }
 
       await request();
+      // 업데이트가 되면 화면에서 바로 보여주기 위한 넥스트의 권장 방법
       router.refresh();
       toast.success('이 게시글 좋아요!');
     } catch (error) {

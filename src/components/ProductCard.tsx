@@ -7,6 +7,7 @@ import HeartButton from './HeartButton';
 import { fromNow } from '@/helpers/dayjs';
 
 interface ProductCardProps {
+  // 프리즈마 스키마에 작성한 모델을 토대로 타입을 만들어줌
   currentUser?: User | null;
   data: Product;
 }
@@ -14,6 +15,9 @@ interface ProductCardProps {
 const ProductCard = ({ currentUser, data }: ProductCardProps) => {
   const router = useRouter();
   return (
+    // ex)
+    // col-span-2는 요소가 그리드 컬럼 2개를 차지하도록 설정
+    // col-span-3은 요소가 그리드 컬럼 3개를 차지하도록 설정
     <div
       onClick={() => router.push(`/products/${data.id}`)}
       className='col-span-1 cursor-pointer group'
