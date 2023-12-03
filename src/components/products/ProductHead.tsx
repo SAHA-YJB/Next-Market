@@ -26,6 +26,7 @@ const ProductHead = ({
           src={imageSrc}
           alt='product'
           className='object-cover w-full'
+          priority
         />
         <div className='absolute top-5 right-5'>
           <HeartButton productId={id} currentUser={currentUser} />

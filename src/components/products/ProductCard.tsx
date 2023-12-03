@@ -30,6 +30,7 @@ const ProductCard = ({ currentUser, data }: ProductCardProps) => {
             sizes='auto'
             className='object-cover w-ull h-full transition group-hover:scale-110'
             alt='product'
+            priority
           />
           <div className='absolute top-3 right-3'>
             <HeartButton currentUser={currentUser} productId={data.id} />
