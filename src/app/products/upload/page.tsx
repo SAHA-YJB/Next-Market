@@ -15,7 +15,6 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 const ProductUploadPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
   // 현재 위치를 가져오기 위한 스테이트와 useEffect
   // 찾고 프랍으로 전달
   const [latitude, setLatitude] = useState<number>(0);
@@ -75,7 +74,7 @@ const ProductUploadPage = () => {
       .then((res) => {
         router.push(`/products/${res.data.id}`);
       })
-      .catch((err) => console.log('프로덕트 섭밋 에러', err))
+      .catch((err) => console.log('프로덕트 생성 에러', err))
       .finally(() => setIsLoading(false));
   };
 
@@ -140,7 +139,6 @@ const ProductUploadPage = () => {
             setLatitude={setLatitude}
             setLongitude={setLongitude}
           />
-
           <Button label='상품 생성하기' disabled={isLoading} />
         </form>
       </div>

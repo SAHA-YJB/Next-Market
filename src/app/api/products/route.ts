@@ -35,3 +35,47 @@ export async function POST(request: Request) {
 
   return NextResponse.json(product);
 }
+
+export async function PATCH(request: Request) {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    return NextResponse.error();
+  }
+
+  const body = await request.json();
+
+  const {
+    productId,
+    title,
+    description,
+    imageSrc,
+    category,
+    latitude,
+    longitude,
+    price,
+  } = body;
+
+  Object.keys(body).forEach((value) => {
+    if (!body[value]) {
+      return NextResponse.error();
+    }
+  });
+
+  const product = await prisma.product.update({
+    where: {
+      id: productId,
+    },
+    data: {
+      title,
+      description,
+      imageSrc,
+      category,
+      latitude,
+      longitude,
+      price: Number(price),
+    },
+  });
+
+  return NextResponse.json(product);
+}
