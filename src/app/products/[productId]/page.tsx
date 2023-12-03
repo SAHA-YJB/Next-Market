@@ -16,9 +16,7 @@ const ProductPage = async ({ params }: { params: Params }) => {
     return <EmptyState />;
   }
 
-  return (<ProductClient product={product}currentUser={currentUser} />)
-
-
+  return <ProductClient product={product} currentUser={currentUser} />;
 };
 
 export default ProductPage;
