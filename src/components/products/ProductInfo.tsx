@@ -6,14 +6,14 @@ import { formatTime } from '@/helpers/dayjs';
 
 interface ProductInfoProps {
   user: User;
+  createdAt: Date;
+  description: string;
   category: {
     icon: IconType;
     label: string;
     description: string;
     path?: string | undefined;
   };
-  createdAt: Date;
-  description: string;
 }
 
 const ProductInfo = ({
