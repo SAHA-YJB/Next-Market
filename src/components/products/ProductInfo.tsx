@@ -8,12 +8,12 @@ interface ProductInfoProps {
   user: User;
   createdAt: Date;
   description: string;
-  category: {
-    icon: IconType;
-    label: string;
-    description: string;
-    path?: string | undefined;
-  };
+  category:
+      {
+        icon: IconType;
+        label: string;
+        description: string;
+      } | undefined;
 }
 
 const ProductInfo = ({
