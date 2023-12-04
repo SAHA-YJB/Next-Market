@@ -1,4 +1,5 @@
 'use client';
+import Contacts from '@/components/chat/Contacts';
 import { TUserWithChat } from '@/types';
 import { User } from '@prisma/client';
 import axios from 'axios';
@@ -27,7 +28,7 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
   });
   console.log(users);
 
-  users?.find((user: TUserWithChat) => {
+  const currentUserWithMessage = users?.find((user: TUserWithChat) => {
     user.email === currentUser?.email;
   });
   if (isLoading) return <p>loading...</p>;
@@ -39,7 +40,12 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
         {/* md보다 클 때는 둘 다 보이기 */}
         {/* md보다 작고 layout이 true일 때는 contact 안 보임 */}
         <section className={`md:flex ${layout && 'hidden'}`}>
-          contactcontactcontact
+          <Contacts
+            users={users}
+            currentUser={currentUserWithMessage}
+            setLayout={setLayout}
+            setReceiver={setReceiver}
+          />
         </section>
 
         {/* md보다 작고 layout이 false일 때는 chat 안 보임 */}
