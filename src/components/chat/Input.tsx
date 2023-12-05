@@ -11,7 +11,6 @@ interface ChatInputProps {
 const ChatInput = ({ receiverId, currentUserId }: ChatInputProps) => {
   const [message, setMessage] = useState('');
 
-  console.log('챗인풋', receiverId, currentUserId);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

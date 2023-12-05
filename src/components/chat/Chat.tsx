@@ -13,9 +13,10 @@ interface ChatProps {
 }
 
 const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
-  // if (!receiver.receiverName || !currentUser) {
-  //   return <div className='w-full h-full'></div>;
-  // }
+
+  if (!receiver.receiverName || !currentUser) {
+    return <div className='w-full h-full'></div>;
+  }
 
   return (
     <div className='w-full'>
