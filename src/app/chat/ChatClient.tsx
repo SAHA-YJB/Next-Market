@@ -1,4 +1,5 @@
 'use client';
+import Chat from '@/components/chat/Chat';
 import Contacts from '@/components/chat/Contacts';
 import { TUserWithChat } from '@/types';
 import { User } from '@prisma/client';
@@ -26,7 +27,6 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
   } = useSwr('/api/chat', fetcher, {
     refreshInterval: 1000,
   });
-  console.log(users);
 
   const currentUserWithMessage = users?.find((user: TUserWithChat) => {
     user.email === currentUser?.email;
@@ -50,7 +50,11 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
 
         {/* md보다 작고 layout이 false일 때는 chat 안 보임 */}
         <section className={`md:flex ${!layout && 'hidden'}`}>
-          chatchatchatchat
+          <Chat
+            currentUser={currentUserWithMessage}
+            receiver={receiver}
+            setLayout={setLayout}
+          />
         </section>
       </div>
     </main>

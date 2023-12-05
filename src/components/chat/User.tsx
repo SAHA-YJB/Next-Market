@@ -11,7 +11,7 @@ interface UserProps {
 const User = ({ user, currentUserId }: UserProps) => {
   const messagesWithCurrentUser = user.conversations.find(
     (conversation: TConversation) => {
-      conversation.users.find((user) => user.id === currentUserId);
+      conversation.users.find((user) => user.id !== currentUserId);
     }
   );
 
@@ -29,7 +29,7 @@ const User = ({ user, currentUserId }: UserProps) => {
             {latestMessage.text}
           </p>
         )}
-        {latestMessage && latestMessage?.image && (
+        {latestMessage && latestMessage.imageSrc && (
           <p className='text-xs font-medium text-gray-600'>사진</p>
         )}
       </div>
