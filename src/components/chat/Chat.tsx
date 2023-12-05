@@ -1,6 +1,7 @@
 import { TUserWithChat } from '@/types';
 import React from 'react';
 import ChatInput from './Input';
+import ChatHeader from './ChatHeader';
 
 interface ChatProps {
   currentUser: TUserWithChat;
@@ -13,14 +14,28 @@ interface ChatProps {
 }
 
 const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
-
   if (!receiver.receiverName || !currentUser) {
     return <div className='w-full h-full'></div>;
   }
 
+  const conversation = currentUser?.conversations.find((conversation) =>
+    conversation.users.find((user) => user.id === receiver.receiverId)
+  );
+
   return (
     <div className='w-full'>
-      <div>{/* chatheader */}</div>
+      <div>
+        <ChatHeader
+          setLayout={setLayout}
+          receiverName={receiver?.receiverName}
+          receiverImage={receiver?.receiverImage}
+          lastMessageTime={
+            conversation?.messages
+              .filter((message) => message.receiverId === currentUser.id)
+              .slice(-1)[0]?.createdAt
+          }
+        />
+      </div>
 
       <div className='flex flex-col gap-8 p-4 overflow-hidden h-[calc(100vh_-_60px_-_70px_-_80px)]'>
         {/* chatmessage */}
