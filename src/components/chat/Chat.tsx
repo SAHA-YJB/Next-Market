@@ -24,7 +24,6 @@ const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
     scrollToBottom();
   });
 
-  // 내가 날린 대화 제외 상대방 대화 배열화
   const conversation = currentUser?.conversations.find((conversation) =>
     conversation.users.find((user) => user.id === receiver.receiverId)
   );
@@ -41,7 +40,7 @@ const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
           receiverName={receiver?.receiverName}
           receiverImage={receiver?.receiverImage}
           lastMessageTime={
-            // 마지막 메시지 시간 추출
+            // 내가 보낸 메시지 필터 후 상대방의 마지막 메시지 시간 추출
             conversation?.messages
               .filter((message) => message.receiverId === currentUser.id)
               .slice(-1)[0]?.createdAt

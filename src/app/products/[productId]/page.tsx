@@ -3,6 +3,12 @@ import getProductById from '@/app/actions/getProductById';
 import EmptyState from '@/components/EmptyState';
 import React from 'react';
 import ProductClient from './ProductClient';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'next-market-Product',
+  description: 'practice create next app',
+};
 
 export interface Params {
   productId: string;

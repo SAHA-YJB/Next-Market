@@ -5,30 +5,34 @@ import { TUserWithChat } from '@/types';
 import { User } from '@prisma/client';
 import axios from 'axios';
 import { useState } from 'react';
-import useSwr from 'swr';
+import useSWR from 'swr';
 
 interface ChatClientProps {
   currentUser?: User | null;
 }
 
 const ChatClient = ({ currentUser }: ChatClientProps) => {
+  //받는 사람 상태
   const [receiver, setReceiver] = useState({
     receiverId: '',
     receiverName: '',
     receiverImage: '',
   });
+  //반응형 레이아웃 상태
   const [layout, setLayout] = useState(false);
 
-  //폴링
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+  //폴링
   const {
     data: users,
     error,
     isLoading,
-  } = useSwr('/api/chat', fetcher, {
+  } = useSWR('/api/chat', fetcher, {
+    // 1초마다 요청을 보냄
     refreshInterval: 1000,
   });
 
+  //현재 유저가 메세지를 보낸 유저인지 확인
   const currentUserWithMessage = users?.find(
     (user: TUserWithChat) => user.email === currentUser?.email
   );

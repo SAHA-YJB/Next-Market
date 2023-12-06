@@ -1,12 +1,12 @@
 'use client';
-import { IoImageOutline } from 'react-icons/io5';
-import { RiSendPlaneLine } from 'react-icons/ri';
-import { useState, useRef } from 'react';
-import axios from 'axios';
-import useSWRMutation from 'swr/mutation';
-import { CgClose } from 'react-icons/cg';
 import { previewImage } from '@/helpers/previewImage';
 import { uploadImage } from '@/helpers/uploadImage';
+import Image from 'next/image';
+import { useRef, useState } from 'react';
+import { CgClose } from 'react-icons/cg';
+import { IoImageOutline } from 'react-icons/io5';
+import { RiSendPlaneLine } from 'react-icons/ri';
+import useSWRMutation from 'swr/mutation';
 
 interface ChatInputProps {
   receiverId: string;
@@ -34,13 +34,15 @@ const sendRequest = async (
 
 const ChatInput = ({ receiverId, currentUserId }: ChatInputProps) => {
   const [message, setMessage] = useState('');
-  //이미지 업로드 버튼 레프
+  //이미지 업로드 버튼 ref
   const imageRef = useRef<HTMLInputElement>(null);
+  // 이미지 url을 받을 상태
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
 
-  // swr 뮤테이션 사용
+  // swr 뮤테이션 사용 시 trigger 함수가 호출되면 요청
   const { trigger } = useSWRMutation('/api/chat', sendRequest);
+
   const chooseImage = () => {
     imageRef.current?.click();
   };
@@ -65,7 +67,7 @@ const ChatInput = ({ receiverId, currentUserId }: ChatInputProps) => {
         //   senderId: currentUserId,
         // });
       } catch (error) {
-        console.log('챗인풋에러', error);
+        console.log('chat input error', error);
       }
     }
     setMessage('');
@@ -73,10 +75,11 @@ const ChatInput = ({ receiverId, currentUserId }: ChatInputProps) => {
     setImagePreview(null);
   };
 
-  const removeImage= () => {
+  const removePreviewImage = () => {
     setImage(null);
     setImagePreview(null);
-  }
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -84,11 +87,18 @@ const ChatInput = ({ receiverId, currentUserId }: ChatInputProps) => {
     >
       {imagePreview && (
         <div className='absolute right-0 w-full overflow-hidden rounded-md bottom-[4.3rem] max-w-[300px] shadow-md'>
-          <img src={imagePreview} alt='preview' />
+          <Image
+            src={imagePreview}
+            alt='preview'
+            width={300}
+            height={300}
+            layout='responsive'
+            className='object-cover'
+          />
           <span
-            onClick={removeImage}
+            onClick={removePreviewImage}
             className='absolute flex items-center justify-center p-2 text-xl text-white cursor-pointer 
-            top-[0.4rem] right-[0.4rem] rounded-full opacity-60 hover:opacity-100'
+            top-2 right-2 rounded-full opacity-60 hover:opacity-100'
           >
             <CgClose />
           </span>

@@ -19,6 +19,7 @@ const Contacts = ({
   setLayout,
   setReceiver,
 }: ContactsProps) => {
+  // 유저정보 저장
   const filterMessages = (
     userId: string,
     userName: string | null,
@@ -39,12 +40,14 @@ const Contacts = ({
       <div className='flex flex-col'>
         {users.length > 0 &&
           users
+            // 현재 유저 제외 필터링
             .filter((user) => user.id !== currentUser?.id)
             .map((user) => {
               return (
                 <div
                   key={user.id}
                   onClick={() => {
+                    // 유저 정보 저장
                     filterMessages(user.id, user.name, user.image);
                     setLayout(true);
                   }}

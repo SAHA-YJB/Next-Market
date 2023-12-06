@@ -9,6 +9,7 @@ export async function GET(request: Request) {
     return NextResponse.redirect('/auth/login');
   }
 
+  //유저 찾기
   const users = await prisma.user.findMany({
     include: {
       conversations: {
@@ -19,6 +20,7 @@ export async function GET(request: Request) {
               receiver: true,
             },
             orderBy: {
+              // 오름차순
               createdAt: 'asc',
             },
           },
@@ -30,6 +32,7 @@ export async function GET(request: Request) {
   return NextResponse.json(users);
 }
 
+// 챗인풋에서 요청을 보낸 후 요기로옴
 export async function POST(request: Request) {
   const currentUser = await getCurrentUser();
 
@@ -61,9 +64,9 @@ export async function POST(request: Request) {
     },
   });
 
+  //기존의 conversation이 있다면 메시지만 생성하기
   if (conversation) {
     try {
-      //기존의 conversation이 있다면 메시지만 생성하기
       const message = await prisma.message.create({
         data: {
           text: body.text,
@@ -76,7 +79,7 @@ export async function POST(request: Request) {
 
       return NextResponse.json(message);
     } catch (error) {
-      return NextResponse.error();
+      return NextResponse.json(error);
     }
   } else {
     // 처음 대화라면 컨벌세이션과 메시지 생성하기
@@ -111,7 +114,7 @@ export async function POST(request: Request) {
 
       return NextResponse.json(message);
     } catch (error) {
-      return NextResponse.error();
+      return NextResponse.json(error);
     }
   }
 }

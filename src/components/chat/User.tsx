@@ -9,12 +9,12 @@ interface UserProps {
 }
 
 const User = ({ user, currentUserId }: UserProps) => {
+  // 현재 유저와 메세지를 주고 받은 유저의 메시지 중 마지막 메시지 정보를 추출
   const messagesWithCurrentUser = user.conversations.find(
     (conversation: TConversation) => {
-      conversation.users.find((user) => user.id !== currentUserId);
+      conversation.users.find((user) => user.id === currentUserId);
     }
   );
-
   const latestMessage = messagesWithCurrentUser?.messages.slice(-1)[0];
 
   return (

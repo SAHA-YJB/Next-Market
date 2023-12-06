@@ -1,4 +1,10 @@
+import { Metadata } from 'next';
 import getCurrentUser from '../actions/getCurrentUser';
+
+export const metadata: Metadata = {
+  title: 'next-market-User',
+  description: 'practice create next app',
+};
 
 const UserPage = async () => {
   // 그냥 쓰는방법getServerSession

@@ -1,6 +1,6 @@
 # 마켓
 
-## Next.js / tailwindCSS / prisma / postgreSQL
+## Next.js / tailwindCSS / prisma / postgreSQL / SWR
 
 공부하며 진행중이라 주석이 많습니다ㅜㅜ!
 (커밋 기록 살펴보며 복기 하기)
@@ -56,3 +56,5 @@
 ### - 해당 아이디에 맞는 아이템 가져오는 액션 생성
 
 ### - 카카오맵스 detailPage props분기처리(클릭x)
+
+## 5차 채팅 구현
