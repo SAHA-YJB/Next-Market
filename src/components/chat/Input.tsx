@@ -25,6 +25,16 @@ const ChatInput = ({ receiverId, currentUserId }: ChatInputProps) => {
           senderId: currentUserId,
         });
       } catch (error) {
+        console.log(
+          'text',
+          message,
+          'image',
+          imageUrl,
+          'receiverId',
+          receiverId,
+          'senderId',
+          currentUserId
+        );
         console.log('챗인풋에러', error);
       }
     }

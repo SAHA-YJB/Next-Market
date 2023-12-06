@@ -33,7 +33,7 @@ const User = ({ user, currentUserId }: UserProps) => {
           <p className='text-xs font-medium text-gray-600'>사진</p>
         )}
       </div>
-      <div>
+      <div className='flex justify-end text-xs text-gray-500'>
         {latestMessage && (
           <p className='text-xs font-medium text-gray-600'>
             {fromNow(latestMessage.createdAt)}

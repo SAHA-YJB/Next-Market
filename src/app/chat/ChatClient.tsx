@@ -19,6 +19,7 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
   });
   const [layout, setLayout] = useState(false);
 
+  //폴링
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);
   const {
     data: users,
@@ -28,7 +29,9 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
     refreshInterval: 1000,
   });
 
-  const currentUserWithMessage = users?.find((user: TUserWithChat) => user.email === currentUser?.email);
+  const currentUserWithMessage = users?.find(
+    (user: TUserWithChat) => user.email === currentUser?.email
+  );
 
   if (isLoading) return <p>loading...</p>;
   if (error) return <p>Error!</p>;

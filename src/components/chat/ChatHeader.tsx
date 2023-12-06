@@ -25,7 +25,7 @@ const ChatHeader = ({
           </button>
         </div>
 
-        <div className='flex items-center gap-[0.6rem]'>
+        <div className='flex items-center gap-4 py-1'>
           <div>
             <Avatar src={receiverImage} />
           </div>
