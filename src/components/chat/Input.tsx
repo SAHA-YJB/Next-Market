@@ -3,13 +3,35 @@ import { IoImageOutline } from 'react-icons/io5';
 import { RiSendPlaneLine } from 'react-icons/ri';
 import { useState } from 'react';
 import axios from 'axios';
+import useSWRMutation from 'swr/mutation';
 interface ChatInputProps {
   receiverId: string;
   currentUserId: string;
 }
 
+const sendRequest = async (
+  url: string,
+  {
+    arg,
+  }: {
+    arg: {
+      text: string;
+      image: string;
+      receiverId: string;
+      senderId: string;
+    };
+  }
+) => {
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(arg),
+  }).then((res) => res.json());
+};
+
 const ChatInput = ({ receiverId, currentUserId }: ChatInputProps) => {
   const [message, setMessage] = useState('');
+  // swr 뮤테이션 사용
+  const {trigger} = useSWRMutation('/api/chat', sendRequest);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,23 +40,19 @@ const ChatInput = ({ receiverId, currentUserId }: ChatInputProps) => {
 
     if (message || imageUrl) {
       try {
-        await axios.post('/api/chat', {
+        trigger({
           text: message,
           image: imageUrl,
           receiverId,
           senderId: currentUserId,
-        });
+        })
+        // await axios.post('/api/chat', {
+        //   text: message,
+        //   image: imageUrl,
+        //   receiverId,
+        //   senderId: currentUserId,
+        // });
       } catch (error) {
-        console.log(
-          'text',
-          message,
-          'image',
-          imageUrl,
-          'receiverId',
-          receiverId,
-          'senderId',
-          currentUserId
-        );
         console.log('챗인풋에러', error);
       }
     }
