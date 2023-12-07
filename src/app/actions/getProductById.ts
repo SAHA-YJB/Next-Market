@@ -1,3 +1,4 @@
+// 임폴트도 []안에 넣어줘야함
 import { Params } from '../products/[productId]/page';
 import prisma from '@/helpers/prismadb';
 
